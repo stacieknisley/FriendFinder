@@ -31,6 +31,27 @@ app.use(bodyParser.json());
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
+// var of userData located in the friends.js file
+// Routes located in the Routing folder in the 
+// apiRoutes.js
+// htmlRoutes.js
+// Create New friends - takes in JSON input
+// app.post("/apiRoutes", function (req, res) {
+// req.body hosts is equal to the JSON post sent from the user
+// This works because of our body-parser middleware
+//     var newUser = req.body;
+
+//     // Using a RegEx Pattern to remove spaces from newCharacter
+//     // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+//     newfriend.routeName = newfriend.name.replace(/\s+/g, "").toLowerCase();
+
+//     console.log(newfriend);
+
+//     characters.push(newfriend);
+
+//     res.json(newfriend);
+// });
+
 // =============================================================================
 // LISTENER
 // The below code effectively "starts" our server

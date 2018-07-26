@@ -25,7 +25,7 @@ module.exports = function (app) {
     // ---------------------------------------------------------------------------
 
     app.get("/api/friends", function (req, res) {
-        res.json(usersData);
+        res.json(userData);
     });
 
 
@@ -56,43 +56,82 @@ module.exports = function (app) {
     // ---------------------------------------------------------------------------
 
     app.post("/api/friends", function (req, res) {
-        // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
-        // It will do this by sending out the value "true" have a table
+        console.log(req.body.scores);
+
+        var diff = [];
+        var userData = req.body.scores;
+        var matchIndex;
+        var length = userData.length;
+
+        for (i = 0; i < length; i++) {
+            var dataScores = userData[i].scores;
+            var subtract = [];
+            for (j = 0; j < dataScores.length; j++) {
+                subtract.push(Math.abs(userScores[j] - dataScores[j]));
+            };
+            function getSum(total, num) {
+                return total + num;
+            }
+            diff.push(subtract.reduce(getSum));
+        };
+
+        var minimum = Math.min(...diff);
+
+        matchIndex = diff.indexOf(minimum);
+
+        friendData.push(req.body);
+
+        res.json(friendData[matchIndex]);
+
+
+
+        // Note the code here. Our "server" will respond to requests and provide a friend match.
         // req.body is available since we're using the body-parser middleware
-
-
         // pseudo code:
         // Add all the numbers or values of each score from the userData array in the friends.js file.
         // Use the most recently added score from the userData array in the friends.js file and compare this
         // to all other scores from the userData array. 
         // Then display the name and photo of the score with the closest value to the most recently added userData.
 
-
         // Use this to add a new user to the userData Array.
-        Array.prototype.splice()
+        // Array.prototype.splice()
         // Adds and / or removes elements from an array.
+        // Add a for loop to loop through each user from the data/friends.js file
+        // Displays a single character, or returns false
+        // app.get("/api/friends/:friends", function (req, res) {
 
 
 
+        //     for (var i = 0; i < userData.length; i++) {
+        //         if (chosen === name[i].routeName) {
+        //             return res.json(name[i]);
+        //         }
+        //     }
 
-        // if (userData.length < 5) {
-        //     userData.push(req.body);
-        //     res.json(true);
-        // }
-        // else {
-        //     waitListData.push(req.body);
-        //     res.json(false);
-        // }
-    });
+        //     return res.json(false);
+        // });
 
-    // ---------------------------------------------------------------------------
-    // Code to clear out the array of data.
-    // Not using the post clear data function, 
-    // I don't want to remove friend data.
-    // app.post("/api/clear", function () {
-    // Empty out the arrays of data
-    // userData = [];
+        // Create New friend - takes in JSON input
+        // app.post("/apiRoutes", function (req, res) {
 
-    // console.log(userData);
-    // });
-};
+
+
+            // if (userData.length < 5) {
+            //     userData.push(req.body);
+            //     res.json(true);
+            // }
+            // else {
+            //     waitListData.push(req.body);
+            //     res.json(false);
+            // }
+        // });
+
+        // ---------------------------------------------------------------------------
+        // Code to clear out the array of data.
+        // Not using the post clear data function, 
+        // I don't want to remove friend data.
+        // app.post("/api/clear", function () {
+        // Empty out the arrays of data
+        // userData = [];
+
+        // console.log(userData);
