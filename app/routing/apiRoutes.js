@@ -59,15 +59,18 @@ module.exports = function (app) {
         console.log(req.body.scores);
 
         var diff = [];
-        var userData = req.body.scores;
-        var matchIndex;
-        var length = userData.length;
+        var newFriendScores = req.body.scores;
+        console.log("User Data: " + userData);
+        var matchIndex = 0;
+        var friendData = [];
+        //var length = userData.length;
 
-        for (i = 0; i < length; i++) {
-            var dataScores = userData[i].scores;
+        for (i = 0; i < userData.length; i++) {
+            //var dataScores = userData[i].scores;
+            console.log("Data Scores: " + newFriendScores);
             var subtract = [];
-            for (j = 0; j < dataScores.length; j++) {
-                subtract.push(Math.abs(userScores[j] - dataScores[j]));
+            for (j = 0; j < newFriendScores.length; j++) {
+                subtract.push(Math.abs(userData[i].scores[j] - parseInt(newFriendScores[j])));
             };
             function getSum(total, num) {
                 return total + num;
@@ -83,7 +86,8 @@ module.exports = function (app) {
 
         res.json(friendData[matchIndex]);
 
-
+    });
+}
 
         // Note the code here. Our "server" will respond to requests and provide a friend match.
         // req.body is available since we're using the body-parser middleware
