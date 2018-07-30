@@ -57,37 +57,96 @@ module.exports = function (app) {
 
     app.post("/api/friends", function (req, res) {
         console.log(req.body.scores);
+        var minimumDifference = 1000;
+        var closestUser = null;
+        // total score of the person entering new data
 
-        var diff = [];
-        var newFriendScores = req.body.scores;
-        console.log("User Data: " + userData);
-        var matchIndex = 0;
-        var friendData = [];
-        //var length = userData.length;
+        var sum = 0;
+        for (var i = 0; i < req.body.scores.length; i++) {
+            sum += req.body.scores[i]
+        }
 
-        for (i = 0; i < userData.length; i++) {
-            //var dataScores = userData[i].scores;
-            console.log("Data Scores: " + newFriendScores);
-            var subtract = [];
-            for (j = 0; j < newFriendScores.length; j++) {
-                subtract.push(Math.abs(userData[i].scores[j] - parseInt(newFriendScores[j])));
-            };
-            function getSum(total, num) {
-                return total + num;
+        // loop through each userData and add up the score for each user
+        for (var i = 0; i < userData.length; i++) {
+            // to access individual userData objects...
+            var individualUser = userData[i];
+            var userSum = 0;
+            for (var j = 0; j < individualUser.scores.length; j++) {
+                userSum += individualUser.scores[j]
             }
-            diff.push(subtract.reduce(getSum));
-        };
+            // find the absolute difference between userSum and sum, and compare that
+            // to maximumDifference
+            // if (sum <= Math.abs(//do so math in between the parenthesis)userSum) {
+            //     closerUser = individualUser.name
 
-        var minimum = Math.min(...diff);
 
-        matchIndex = diff.indexOf(minimum);
+            // }
 
-        friendData.push(req.body);
 
-        res.json(friendData[matchIndex]);
+        }
+        console.log(closerUser);
 
-    });
-}
+
+
+
+
+
+            // need to do something with userSum, sum, and maximumDifference...
+            // if the minimum difference comparison hits
+            // we need to set minimumDifference to that new number
+            // and closestUser to the user t
+
+            // if the sum absolute value is less than minimum difference of the userSum 
+
+
+        // compare the sum/req.body.score against the sum/userData.scores and find 
+        // numbers with most similar value at <10.
+
+
+
+
+
+        // find the sum of res.body.scores
+        // loop through userData.length
+        // find the total value of each user
+        // if the new user's absolute diffe
+
+//         var diff = [];
+//         var newFriendScores = req.body.scores;
+//         console.log("User Data: " + userData);
+//         var matchIndex = 0;
+//         var friendData = [];
+//         //var length = userData.length;
+
+//         for (i = 0; i < userData.length; i++) {
+//             //var dataScores = userData[i].scores;
+//             console.log("Data Scores: " + newFriendScores);
+//             var subtract = [];
+//             var totalDifference = 1000;
+//             for (j = 0; j < newFriendScores.length; j++) {
+//                 subtract.push(Math.abs(userData[i].scores[j] - parseInt(newFriendScores[j])));
+//             };
+//             function getSum(total, num) {
+//                 return total + num;
+//             }
+//             diff.push(subtract.reduce(getSum));
+//         };
+
+//         var minimum = Math.min(...diff);
+
+//         matchIndex = diff.indexOf(minimum);
+
+//         friendData.push(req.body);
+
+//         console.log('helllllloo');
+//         console.log(matchIndex)
+//         console.log(friendData);
+//         console.log(friendData[matchIndex]);
+
+//         res.json(friendData[matchIndex]);
+
+//     });
+// }
 
         // Note the code here. Our "server" will respond to requests and provide a friend match.
         // req.body is available since we're using the body-parser middleware
